@@ -1,7 +1,7 @@
 fn is_prime(value: i32) -> bool {
     if value < 2 {
         return false;
-    } else if value % 2 == 0 {
+    } else if value>2 && value % 2 == 0 {
         return false;
     } else {
         let mut i = 3;
