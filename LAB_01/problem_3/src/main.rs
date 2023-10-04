@@ -16,7 +16,8 @@ fn main() {
             println!("{value} bottles of beer on the wall,");
             println!("{value} bottles of beer.");
             println!("Take one down, pass it around");
-            println!("{value} bottles of beer on the wall.");
+            let new_value=value-1;
+            println!("{new_value} bottles of beer on the wall.");
             println!("");
         }
         value -= 1;
