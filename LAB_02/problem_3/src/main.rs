@@ -3,42 +3,67 @@ fn add_space(s: &mut String, mut n: i64) {
         s.push(' ');
         n -= 1;
     }
-    print!("{}", s);
 }
 
 fn add_str(s: &mut String, st: &str) {
-    // let mut iterator = 0;
-    // let l = s.len();
-    // while iterator <= l {
-    //     s.push(st[iterator]);
-    //     iterator += 1;
-    // }
-
     *s += &st;
-
-    print!("{}", s);
 }
 
-// fn add_integer(mut s: String, value: i32) {
-//     let aux = value as String;
-//     let iterator = 0;
-//     while value != NULL {
-//         if iterator == 3 {
-//             aux.push('_');
-//             iterator = 0;
-//         } else {
-//             aux.push((aux % 10) as String);
-//         }
-//         iterator += 1;
-//         value /= 10;
-//     }
-// }
+fn add_integer(s: &mut String, value: i64) {
+    let mut value = value.to_string();
+    let mut index = value.len() - 1;
+    let mut modified_value: String = Default::default();
 
-fn add_float(mut s: String, value: u32) {}
+    while index != 0 {
+        if index % 3 == 0 {
+            modified_value = (&value[0..index]).to_string();
+            modified_value.push('_');
+            modified_value.push_str(&value[index..]);
+            value = modified_value.clone();
+        }
+        index -= 1;
+    }
+
+    *s += &modified_value;
+}
+
+fn add_float(s: &mut String, value: f64) {
+    *s += &((value).to_string());
+}
 
 fn main() {
     //test
-    let mut name:String = String::from("Joe");
-    add_space(&mut name,5);
-    add_str(&mut name,"hello");
+    let mut s: String = String::from("");
+    
+    add_space(&mut s, 41);
+    add_str(&mut s, "I 💚\n");
+    add_space(&mut s, 41);
+    add_str(&mut s, "RUST.\n\n");
+    add_space(&mut s, 5);
+    add_str(&mut s, "Most");
+    add_space(&mut s, 12);
+    add_str(&mut s, "create");
+    add_space(&mut s, 5);
+    add_integer(&mut s, 306237968);
+    add_space(&mut s, 10);
+    add_str(&mut s, "and");
+    add_space(&mut s, 5);
+    add_str(&mut s, "lastest");
+    add_space(&mut s, 9);
+    add_str(&mut s, "is\n");
+    add_space(&mut s, 10);
+    add_str(&mut s, "downloaded");
+    add_space(&mut s, 9);
+    add_str(&mut s, "has");
+    add_space(&mut s, 11);
+    add_str(&mut s, "downloads");
+    add_space(&mut s, 5);
+    add_str(&mut s, "the");
+    add_space(&mut s, 9);
+    add_str(&mut s, "version");
+    add_space(&mut s, 4);
+    add_float(&mut s, 2.038);
+    add_str(&mut s, ".");
+
+    print!("{}", s);
 }
