@@ -75,12 +75,9 @@ fn add_integer(s: &mut String, value: i64) {
 //     s.push_str(&string_value);
 // }
 
-
 //---------------
 //sau
 //---------------
-
-
 
 // fn add_float(s: &mut String, mut precision: i64, value: f64) {
 //     // *s += &((value).to_string());
@@ -101,13 +98,20 @@ fn add_integer(s: &mut String, value: i64) {
 
 //----------------------------------------------
 
-fn add_float(s: &mut String, value: f64) {
+fn add_float(s: &mut String, value: f64, mut precision: i64) {
     // *s += &((value).to_string());
 
     let integer = value.floor() as i64;
     let mut integer_string: String = Default::default();
     convert_i_to_string(&mut integer_string, integer);
-    let fraction = value.fract() as i64;
+
+    let mut _pow = 1;
+    while precision != 0 {
+        _pow *= 10;
+        precision -= 1;
+    }
+
+    let fraction = (value.fract() * _pow as f64) as i64;
     let mut fraction_string: String = Default::default();
     convert_i_to_string(&mut fraction_string, fraction);
 
@@ -146,7 +150,7 @@ fn main() {
     add_space(&mut s, 9);
     add_str(&mut s, "version");
     add_space(&mut s, 4);
-    add_float(&mut s, 2.038);
+    add_float(&mut s, 2.038, 3);
     add_str(&mut s, ".");
 
     print!("{}", s);
