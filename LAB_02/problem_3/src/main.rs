@@ -49,16 +49,67 @@ fn add_integer(s: &mut String, value: i64) {
     *s += &modified_value;
 }
 
+//-----------------------------------------
+//     ---Am sa va rog sa luati in considerare si logica de la acest cod comentat. N-am avut destul  timp sa termin implementarea!---
+
+// fn convert_f_to_string(s: &mut String, mut value: f64) {
+//     let mut precision = 0;
+//     while value.sqrt().floor() != value.sqrt() {
+//         value *= 10.0;
+//         precision += 1;
+//     }
+
+//     let mut string_value: String = Default::default();
+//     convert_i_to_string(&mut string_value, value as i64);
+//     let _sufix: &str =
+//         &string_value[&string_value.len() - precision..&string_value.len() - precision + 1];
+//     *s += &string_value;
+// }
+
+// fn add_float(s: &mut String, value: f64) {
+//     // *s += &((value).to_string());
+//     let mut string_value: String = Default::default();
+
+//     convert_f_to_string(&mut string_value, value);
+
+//     s.push_str(&string_value);
+// }
+
+
+//---------------
+//sau
+//---------------
+
+
+
+// fn add_float(s: &mut String, mut precision: i64, value: f64) {
+//     // *s += &((value).to_string());
+
+//     let mut _pow = 1;
+//     while precision != 0 {
+//         _pow *= 10;
+//         precision -= 1;
+//     }
+
+//     add_integer(s, value as i64);
+//     s.push('.');
+
+//     let mut fraction = value.fract();
+//     fraction *= _pow as f64;
+//     add_integer(s, fraction as i64);
+// }
+
+//----------------------------------------------
+
 fn add_float(s: &mut String, value: f64) {
     // *s += &((value).to_string());
-    let mut string_value: String = Default::default();
 
     let integer = value.floor() as i64;
-    let mut integer_string : String = Default::default();
-    convert_i_to_string(&mut integer_string,integer);
+    let mut integer_string: String = Default::default();
+    convert_i_to_string(&mut integer_string, integer);
     let fraction = value.fract() as i64;
-    let mut fraction_string : String = Default::default();
-    convert_i_to_string(&mut fraction_string,fraction);
+    let mut fraction_string: String = Default::default();
+    convert_i_to_string(&mut fraction_string, fraction);
 
     s.push_str(&integer_string);
     s.push('.');
