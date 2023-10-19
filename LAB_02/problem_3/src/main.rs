@@ -20,6 +20,7 @@ fn convert_i_to_string(s: &mut String, mut value: i64) {
             reverse_s += &s[index..index + 1];
             index -= 1;
         }
+        reverse_s += &s[index..index + 1];
         *s = reverse_s;
 
         return;
@@ -48,21 +49,20 @@ fn add_integer(s: &mut String, value: i64) {
     *s += &modified_value;
 }
 
-// fn convert_f_to_string(s: &mut String, mut value: f64) {
-//     let ch: char = ((value % 10.0) as u8 + b'0') as char;
-//     s.push(ch);
-//     value /= 10.0;
-//     if value == 0.0 {
-//         return;
-//     }
-//     convert_f_to_string(s, value);
-// }
-
 fn add_float(s: &mut String, value: f64) {
-    *s += &((value).to_string());
-    // let mut string_value: String = Default::default();
-    // convert_f_to_string(&mut string_value, value);
-    // *s += &string_value;
+    // *s += &((value).to_string());
+    let mut string_value: String = Default::default();
+
+    let integer = value.floor() as i64;
+    let mut integer_string : String = Default::default();
+    convert_i_to_string(&mut integer_string,integer);
+    let fraction = value.fract() as i64;
+    let mut fraction_string : String = Default::default();
+    convert_i_to_string(&mut fraction_string,fraction);
+
+    s.push_str(&integer_string);
+    s.push('.');
+    s.push_str(&fraction_string);
 }
 
 fn main() {
