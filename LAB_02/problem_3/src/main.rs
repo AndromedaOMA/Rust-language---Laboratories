@@ -105,7 +105,7 @@ fn add_float(s: &mut String, value: f64, mut precision: i64) {
     let mut integer_string: String = Default::default();
     convert_i_to_string(&mut integer_string, integer);
 
-    let mut _pow = 1;
+    let mut _pow: i64 = 1;
     while precision != 0 {
         _pow *= 10;
         precision -= 1;
@@ -121,7 +121,7 @@ fn add_float(s: &mut String, value: f64, mut precision: i64) {
 }
 
 fn main() {
-    let mut s: String = String::from("");
+    let mut s: String = Default::default();
 
     add_space(&mut s, 41);
     add_str(&mut s, "I 💚\n");
@@ -150,7 +150,7 @@ fn main() {
     add_space(&mut s, 9);
     add_str(&mut s, "version");
     add_space(&mut s, 4);
-    add_float(&mut s, 2.038, 3);
+    add_float(&mut s, 2.038, 4);
     add_str(&mut s, ".");
 
     print!("{}", s);
