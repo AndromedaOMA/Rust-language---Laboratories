@@ -7,7 +7,7 @@ fn ROT13() -> Result<(), io::Error> {
     let mut final_string: String = String::from("");
     let mut result;
     for i in s.chars() {
-        if !(i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z') {
+        if !(i as u8 <= 127) {
             return Err(custom_error);
         } else if !(i >= 'a' && i <= 'n' || i >= 'A' && i <= 'N') {
             let ascii_value = i as u8;
@@ -26,5 +26,5 @@ fn ROT13() -> Result<(), io::Error> {
 }
 
 fn main() {
-    let _ = ROT13();
+    print!("{:?}", ROT13());
 }
