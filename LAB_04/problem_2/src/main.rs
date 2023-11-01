@@ -1,13 +1,13 @@
 use std::io::{Error, ErrorKind};
 use std::{fs, io};
 
-fn ROT13() -> Result<(), io::Error> {
+fn rot13() -> Result<(), io::Error> {
     let custom_error = Error::new(ErrorKind::Other, "oh no!");
     let s = fs::read_to_string("./input.txt")?;
     let mut final_string: String = String::from("");
     let mut result;
     for i in s.chars() {
-        if !(i as u8 <= 127) {
+        if !(i as u32 <= 127) {
             return Err(custom_error);
         } else if i as u8 == 32 {
             result = ' ';
@@ -28,5 +28,5 @@ fn ROT13() -> Result<(), io::Error> {
 }
 
 fn main() {
-    print!("{:?}", ROT13());
+    print!("{:?}", rot13());
 }
