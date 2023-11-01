@@ -3,7 +3,7 @@ use std::{fs, io};
 
 fn ROT13() -> Result<(), io::Error> {
     let custom_error = Error::new(ErrorKind::Other, "oh no!");
-    let s = fs::read_to_string("src/input.txt")?;
+    let s = fs::read_to_string("./input.txt")?;
     let mut final_string: String = String::from("");
     let mut result;
     for i in s.chars() {
