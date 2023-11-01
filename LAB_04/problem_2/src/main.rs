@@ -9,9 +9,11 @@ fn ROT13() -> Result<(), io::Error> {
     for i in s.chars() {
         if !(i as u8 <= 127) {
             return Err(custom_error);
+        } else if i as u8 == 32 {
+            result = ' ';
         } else if !(i >= 'a' && i <= 'n' || i >= 'A' && i <= 'N') {
-            let ascii_value = i as u8;
-            let ch_plus = ascii_value - 13;
+            let ascii_value = i as i8;
+            let ch_plus = (ascii_value - 13) as u8;
             result = ch_plus as char;
         } else {
             let ascii_value = i as u8;
