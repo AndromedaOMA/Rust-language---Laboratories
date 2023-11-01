@@ -1,14 +1,14 @@
-#[derive(PartialEq,Debug)]
-enum ERR {
-    NotAscii,
-}
+use std::io::{Error, ErrorKind};
+use std::{fs, io};
 
-fn ROT13(s: String) -> Result<String, ERR> {
+fn ROT13() -> Result<(), io::Error> {
+    let custom_error = Error::new(ErrorKind::Other, "oh no!");
+    let s = fs::read_to_string("src/input.txt")?;
     let mut final_string: String = String::from("");
     let mut result;
     for i in s.chars() {
         if !(i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z') {
-            return Err(ERR::NotAscii);
+            return Err(custom_error);
         } else if !(i >= 'a' && i <= 'n' || i >= 'A' && i <= 'N') {
             let ascii_value = i as u8;
             let ch_plus = ascii_value - 13;
@@ -20,11 +20,11 @@ fn ROT13(s: String) -> Result<String, ERR> {
         }
         final_string.push(result);
     }
+    fs::write("output.txt", &final_string)?;
 
-    Ok(final_string)
+    Ok(())
 }
 
 fn main() {
-    let s: String = String::from("Rebeca");
-    print!("{:?}", ROT13(s));
+    let _ = ROT13();
 }
