@@ -11,14 +11,16 @@ fn rot13() -> Result<(), io::Error> {
             return Err(custom_error);
         } else if i as u8 == 32 {
             result = ' ';
-        } else if !(i >= 'a' && i <= 'n' || i >= 'A' && i <= 'N') {
+        } else if i >= 'n' && i <= 'z' || i >= 'N' && i <= 'Z' {
             let ascii_value = i as i8;
             let ch_plus = (ascii_value - 13) as u8;
             result = ch_plus as char;
-        } else {
+        } else if i >= 'a' && i < 'n' || i >= 'A' && i < 'N' {
             let ascii_value = i as u8;
             let ch_plus = ascii_value + 13;
             result = ch_plus as char;
+        } else {
+            result = i;
         }
         final_string.push(result);
     }
