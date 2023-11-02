@@ -3,7 +3,6 @@ use std::{fs, io};
 fn do_stuff() -> Result<(), io::Error> {
     let s = fs::read_to_string("C:/Windows/System32/drivers/etc/services")?;
     let mut index;
-    let mut final_string = String::new();
     for l in s.lines() {
         if l.find('#').is_some() {
             index = l.find('#').unwrap();
