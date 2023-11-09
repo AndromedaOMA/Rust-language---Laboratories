@@ -5,15 +5,15 @@ use std::fs;
 
 // source: https://stackoverflow.com/questions/35458562/how-can-i-implement-rusts-copy-trait
 #[derive(Debug, Deserialize)]
-struct Data<'a> {
-    name: &'a str,
-    phone: &'a str,
+struct Data {
+    name: String,
+    phone: String,
     age: i32,
 }
 
 // source: https://stackoverflow.com/questions/24855830/how-convert-a-string-in-str-in-impl-block-in-rust
 use std::fmt;
-impl fmt::Display for Data<'_> {
+impl fmt::Display for Data {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), std::fmt::Error> {
         write!(
             f,
@@ -36,13 +36,13 @@ fn main() -> Result<()> {
     let mut _minimum_age = "200";
 
     let mut _maximum_age_data: Data = Data {
-        name: "",
-        phone: "",
+        name: String::new(),
+        phone: String::new(),
         age: 0,
     };
     let mut _minimum_age_data: Data = Data {
-        name: "",
-        phone: "",
+        name: String::new(),
+        phone: String::new(),
         age: 0,
     };
 
