@@ -4,7 +4,7 @@ use serde_derive::Deserialize;
 use std::fs;
 
 // source: https://stackoverflow.com/questions/35458562/how-can-i-implement-rusts-copy-trait
-#[derive(Debug, Deserialize, Clone, Copy)]
+#[derive(Debug, Deserialize)]
 struct Data<'a> {
     name: &'a str,
     phone: &'a str,
@@ -65,15 +65,33 @@ fn main() -> Result<()> {
             _maximum_age_data = p;
         }
     }
-    // let binding1 = _minimum_age_data.to_string();
-    // let p1: Data = serde_json::from_str(&binding1).unwrap();
-    // println!("{}", p1);
+    // let content = fs::read_to_string("person.json").unwrap();
+    // let p: Person = serde_json::from_str(&content).unwrap();
+    // println!("{:?}", p);
+
     let binding1 = _minimum_age_data.to_string();
-    let p1: Data = serde_json::from_str(&binding1).unwrap();
-    println!("{}", p1);
+    match serde_json::from_str::<Data>(&binding1) {
+        Ok(p1) => {
+            println!("{:?}", p1);
+        }
+        Err(err) => {
+            eprintln!("Error deserializing JSON: {}", err);
+        }
+    }
+    // let p1: Data = serde_json::from_str(&binding1).unwrap();
+    // println!("{:?}", p1);
+
     let binding2 = _maximum_age_data.to_string();
-    let p2: Data = serde_json::from_str(&binding2).unwrap();
-    println!("{}", p2);
+    match serde_json::from_str::<Data>(&binding2) {
+        Ok(p2) => {
+            println!("{:?}", p2);
+        }
+        Err(err) => {
+            eprintln!("Error deserializing JSON: {}", err);
+        }
+    }
+    // let p2: Data = serde_json::from_str(&binding2).unwrap();
+    // println!("{:?}", p2);
 
     Ok(())
 }
