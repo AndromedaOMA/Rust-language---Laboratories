@@ -32,8 +32,8 @@ impl fmt::Display for Data<'_> {
 fn main() -> Result<()> {
     let s = fs::read_to_string("./src/text.txt")?;
 
-    let _maximum_age = "0";
-    let _minimum_age = "200";
+    let mut _maximum_age = "0";
+    let mut _minimum_age = "200";
 
     let mut _maximum_age_data: Data = Data {
         name: "",
@@ -58,8 +58,10 @@ fn main() -> Result<()> {
         // println!("{}", extracted_age);
 
         if extracted_age < _minimum_age {
+            _minimum_age = extracted_age;
             _minimum_age_data = p;
         } else if extracted_age > _maximum_age {
+            _maximum_age = extracted_age;
             _maximum_age_data = p;
         }
     }
@@ -72,6 +74,6 @@ fn main() -> Result<()> {
     let binding2 = _maximum_age_data.to_string();
     let p2: Data = serde_json::from_str(&binding2).unwrap();
     println!("{}", p2);
-    
+
     Ok(())
 }
