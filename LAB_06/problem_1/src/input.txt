@@ -11,4 +11,7 @@ times
 times
 times abc
 
+print
+print 1 2 3
+
 stop
