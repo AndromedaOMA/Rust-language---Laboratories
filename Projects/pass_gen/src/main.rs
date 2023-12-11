@@ -1,7 +1,7 @@
 use fastrand;
 use regex::Regex;
-use std::io;
 use std::io::{Error, ErrorKind};
+use std::{fs, io};
 // use std::iter::repeat_with;
 
 fn main() -> Result<(), io::Error> {
@@ -71,7 +71,35 @@ fn main() -> Result<(), io::Error> {
         println!("Enjoy!!");
     } else {
         //============================================DICTIONARY PASSWORD======================================
+        let path = format!("./{}", args[2]);
+        let s = fs::read_to_string(path)?;
+        //test
+        //println!("{}", path);
+        //println!("{}", s);
+
+        let re = Regex::new(r"\S+").unwrap();
+        let words: Vec<&str> = re.find_iter(&s).map(|m| m.as_str()).collect();
+
+        let random_length = fastrand::usize(12..19);
+        let mut password_length = 0;
+        let password: String = (0..random_length)
+            .map(|_| {
+                let random_index = fastrand::usize(..words.len());
+                if password_length + words[random_index].len() <= random_length {
+                    password_length += words[random_index].len();
+                    words[random_index].to_string()
+                } else {
+                    "".to_string()
+                }
+            })
+            .collect();
+
         println!("Hello!!");
+        println!(
+            "-> Here is the random password generated with dictionary: {}",
+            password
+        );
+        println!("Enjoy!!");
     }
     //====================================================================================================
 

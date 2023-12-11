@@ -1,0 +1,14 @@
+apple
+banana
+carrot
+dog
+elephant
+fish
+grape
+horse
+ice
+cream
+jellyfish
+kangaroo
+lemon
+mango
