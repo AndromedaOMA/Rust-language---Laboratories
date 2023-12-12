@@ -11,3 +11,4 @@ rand="*"
 #source: https://docs.rs/fastrand/latest/fastrand/
 fastrand="*"
 regex="*"
+glob="*"

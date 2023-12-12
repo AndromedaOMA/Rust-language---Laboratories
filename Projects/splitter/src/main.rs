@@ -1,7 +1,8 @@
 use regex::Regex;
 use std::fs::File;
-use std::io;
 use std::io::{Error, ErrorKind, Read, Write};
+use std::io;
+use glob::glob;
 // use std::iter::repeat_with;
 
 fn main() -> Result<(), io::Error> {
@@ -81,7 +82,21 @@ fn main() -> Result<(), io::Error> {
     } else if args[1] == "unsplit" {
         //============================================UNSPLIT=================================================
         // println!("unsplit");
-        
+        let mut list_of_split_paths = vec![];
+
+        for entry in glob("../splitter/*.split").expect("Failed to read glob pattern") {
+            match entry {
+                Ok(path) => list_of_split_paths.push(path.display().to_string()),
+                Err(e) => println!("{:?}", e),
+            }
+        }
+        println!("list_of_paths: {:?}", list_of_split_paths);
+
+        // for path in paths {
+        //     if
+        // }
+        // println!("list_of_paths: {:?}", list_of_split_paths);
+        // println!("Done! -> {} files created", list_of_split_paths.len() - 1);
     }
 
     Ok(())
@@ -91,4 +106,9 @@ fn main() -> Result<(), io::Error> {
 //source: https://users.rust-lang.org/t/read-variable-number-of-bytes-from-a-file/89179
 //source: https://www.youtube.com/watch?v=nQqraiMymcU
 //source: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
+//source: https://stackoverflow.com/questions/26076005/how-can-i-list-files-of-a-directory-in-rust
+//source: https://crates.io/crates/glob
+//source: 
+//source: 
+//source: 
 //====================================================================================================
