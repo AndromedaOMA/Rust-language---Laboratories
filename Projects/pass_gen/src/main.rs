@@ -1,11 +1,10 @@
-use fastrand;
 use regex::Regex;
 use std::io::{Error, ErrorKind};
 use std::{fs, io};
 // use std::iter::repeat_with;
 
 fn main() -> Result<(), io::Error> {
-    let custom_error = Error::new(ErrorKind::Other, "oh no!");
+    let custom_error = Error::new(ErrorKind::Other, "Wrong command!");
 
     //============================================LISTS OF CHARS==========================================
     let list_of_alphanumeric: Vec<char> =
@@ -32,8 +31,9 @@ fn main() -> Result<(), io::Error> {
     */
 
     if args.len() == 1 && args[0] != "./pass_gen"
-        || args.len() > 1
+        || args.len() == 3
             && (args[0] != "./pass_gen" || args[1] != "--dict" || args[2] != "dict.txt")
+        || args.len() != 1 && args.len() != 3
     {
         println!("You have to chose from these two commands:");
         println!("   1. ./pass_gen                 -> to generate a random password");
@@ -71,7 +71,7 @@ fn main() -> Result<(), io::Error> {
         println!("Enjoy!!");
     } else {
         //============================================DICTIONARY PASSWORD======================================
-        let path = format!("./{}", args[2]);
+        let path = format!("./src/{}", args[2]);
         let s = fs::read_to_string(path)?;
         //test
         //println!("{}", path);

@@ -8,5 +8,6 @@ edition = "2021"
 [dependencies]
 #source: https://docs.rs/crate/rand/0.8.5
 rand="*"
+#source: https://docs.rs/fastrand/latest/fastrand/
 fastrand="*"
 regex="*"
