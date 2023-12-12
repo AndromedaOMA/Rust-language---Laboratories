@@ -6,11 +6,15 @@ use std::{fs, io};
 // use std::iter::repeat_with;
 
 fn main() -> Result<(), io::Error> {
+
+    //============================================ERRORS==================================================
     let custom_error = Error::new(ErrorKind::Other, "Wrong command!");
     let list_of_split_paths_error = Error::new(
         ErrorKind::Other,
         "There are no files to unsplit! You have to split a zip file first!",
     );
+    //====================================================================================================
+
     //============================================INPUT===================================================
     let mut input = String::new();
     println!("Enter a command:");
