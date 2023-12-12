@@ -11,7 +11,7 @@ fn main() -> Result<(), io::Error> {
     let custom_error = Error::new(ErrorKind::Other, "Wrong command!");
     let list_of_split_paths_error = Error::new(
         ErrorKind::Other,
-        "There are no files to unsplit! You have to split a zip file first!",
+        "There are no files to unsplit! You have to split a txt file first!",
     );
     //====================================================================================================
 
@@ -31,15 +31,15 @@ fn main() -> Result<(), io::Error> {
     */
 
     if (args.len() == 5 || args.len() == 4)
-        && (args[0] != "./splitter" || args[1] != "split" || args[2] != "a.zip" || args[3] != "-s")
+        && (args[0] != "./splitter" || args[1] != "split" || args[2] != "a.txt" || args[3] != "-s")
         || args.len() == 3
-            && (args[0] != "./splitter" || args[1] != "unsplit" || args[2] != "a.zip")
+            && (args[0] != "./splitter" || args[1] != "unsplit" || args[2] != "a.txt")
         || args.len() != 5 && args.len() != 4 && args.len() != 3
     {
         println!("You have to chose from these two commands:");
-        println!("   1. ./splitter split a.zip -s 1K|1M|1G -> to generate multiple files from a zip file of dimension 1K, 1M or 1G");
+        println!("   1. ./splitter split a.txt -s 1K|1M|1G -> to generate multiple files from a txt file of dimension 1K, 1M or 1G");
         println!(
-            "   2. ./splitter unsplit a.zip           -> to recreate the original zip file from the multiple files"
+            "   2. ./splitter unsplit a.txt           -> to recreate the original txt file from the multiple files"
         );
         return Err(custom_error);
     }
@@ -81,7 +81,7 @@ fn main() -> Result<(), io::Error> {
         // println!("content: {:?}", &bytes);
 
         for i in 0..bytes.len() {
-            let name_file = format!("a.zip.part{}.split", i);
+            let name_file = format!("a.txt.part{}.split", i);
             let mut f = File::create(name_file)?;
             f.write_all(&bytes[i].to_be_bytes())?;
         }
@@ -103,12 +103,14 @@ fn main() -> Result<(), io::Error> {
         // println!("list_of_paths: {:?}", list_of_split_paths);
         if list_of_split_paths.len() == 0 {
             return Err(list_of_split_paths_error);
-        } else {
+        } else {  //===========================================NOT WORKING...
+            list_of_split_paths.sort();
             let mut f = File::create(args[2])?;
             for path in list_of_split_paths.iter() {
                 let mut fd = File::open(path).expect("Can't open file");
 
-                let mut bytes = vec![0u8; 1];
+                let size = fd.metadata()?.len() as usize;
+                let mut bytes = vec![0u8; size];
                 fd.read_exact(&mut bytes)?;
 
                 f.write_all(&bytes)?;
