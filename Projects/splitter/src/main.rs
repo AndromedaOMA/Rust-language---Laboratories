@@ -1,13 +1,16 @@
+use glob::glob;
 use regex::Regex;
 use std::fs::File;
 use std::io::{Error, ErrorKind, Read, Write};
-use std::io;
-use glob::glob;
+use std::{fs, io};
 // use std::iter::repeat_with;
 
 fn main() -> Result<(), io::Error> {
     let custom_error = Error::new(ErrorKind::Other, "Wrong command!");
-
+    let list_of_split_paths_error = Error::new(
+        ErrorKind::Other,
+        "There are no files to unsplit! You have to split a zip file first!",
+    );
     //============================================INPUT===================================================
     let mut input = String::new();
     println!("Enter a command:");
@@ -82,6 +85,7 @@ fn main() -> Result<(), io::Error> {
     } else if args[1] == "unsplit" {
         //============================================UNSPLIT=================================================
         // println!("unsplit");
+
         let mut list_of_split_paths = vec![];
 
         for entry in glob("../splitter/*.split").expect("Failed to read glob pattern") {
@@ -90,13 +94,26 @@ fn main() -> Result<(), io::Error> {
                 Err(e) => println!("{:?}", e),
             }
         }
-        println!("list_of_paths: {:?}", list_of_split_paths);
 
-        // for path in paths {
-        //     if
-        // }
+        //test
         // println!("list_of_paths: {:?}", list_of_split_paths);
-        // println!("Done! -> {} files created", list_of_split_paths.len() - 1);
+        if list_of_split_paths.len() == 0 {
+            return Err(list_of_split_paths_error);
+        } else {
+            let mut f = File::create(args[2])?;
+            for path in list_of_split_paths.iter() {
+                let mut fd = File::open(path).expect("Can't open file");
+
+                let mut bytes = vec![0u8; 1];
+                fd.read_exact(&mut bytes)?;
+
+                f.write_all(&bytes)?;
+
+                fs::remove_file(path)?;
+            }
+            
+            // fs::remove_file(args[2])?;
+        }
     }
 
     Ok(())
@@ -108,7 +125,7 @@ fn main() -> Result<(), io::Error> {
 //source: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 //source: https://stackoverflow.com/questions/26076005/how-can-i-list-files-of-a-directory-in-rust
 //source: https://crates.io/crates/glob
-//source: 
-//source: 
-//source: 
+//source: https://doc.rust-lang.org/std/fs/fn.remove_file.html#:~:text=Function%20std%3A%3Afs%3A%3Aremove_file&text=Removes%20a%20file%20from%20the,descriptors%20may%20prevent%20immediate%20removal).
+//source:
+//source:
 //====================================================================================================
