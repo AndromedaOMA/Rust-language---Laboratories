@@ -101,6 +101,7 @@ fn main() -> Result<(), io::Error> {
 
         //test
         // println!("list_of_paths: {:?}", list_of_split_paths);
+        
         if list_of_split_paths.len() == 0 {
             return Err(list_of_split_paths_error);
         } else {  //===========================================NOT WORKING...
@@ -117,7 +118,6 @@ fn main() -> Result<(), io::Error> {
 
                 fs::remove_file(path)?;
             }
-            
             // fs::remove_file(args[2])?;
         }
     }
