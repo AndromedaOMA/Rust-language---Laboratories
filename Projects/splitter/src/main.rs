@@ -40,7 +40,16 @@ fn main() -> Result<(), io::Error> {
     if args[1] == "split" {
         // println!("split");
         let fd=&args[2];
-        let size:usize=
+        let mut file = fs::File::open(fd)?;
+        let size:usize;
+        match args[4] {
+            Some(s) if s=='1K' => size=1024;
+            Some(s) if s=='1M' => size=1024*1024;
+            Some(s) if s=='1G' => size=1024*1024*1024;
+            _ => => size=1; //default size is 1 byte
+        }
+        
+        
     } else if args[1] == "unsplit" {
         println!("unsplit");
     }
