@@ -45,7 +45,7 @@ fn main() -> Result<(), io::Error> {
         let path = format!("./src/{}", args[2]);
         let mut fd = File::open(path).expect("Can't open file");
 
-        let size: usize;
+        let mut size: usize = 1;
 
         //NOT WORKING...
         // match args[4] {
@@ -61,8 +61,6 @@ fn main() -> Result<(), io::Error> {
             size = 1024 * 1024;
         } else if args[4] == "1G" {
             size = 1024 * 1024 * 1024;
-        } else {
-            size = 1; // Default size is 1 byte
         }
 
         //test
@@ -92,4 +90,5 @@ fn main() -> Result<(), io::Error> {
 //=====================================BIBLIOGRAPHY==================================================
 //source: https://users.rust-lang.org/t/read-variable-number-of-bytes-from-a-file/89179
 //source: https://www.youtube.com/watch?v=nQqraiMymcU
+//source: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 //====================================================================================================
