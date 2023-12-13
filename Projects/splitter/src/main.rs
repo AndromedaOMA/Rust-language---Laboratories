@@ -63,7 +63,7 @@ fn main() -> Result<(), io::Error> {
         //     _ => size = 1, // Default size is 1 byte
         // }
 
-        if args[4] == "1K" {
+        if args[4] == "1K" {//todo pot fi parametrii diferiti
             size = 1024;
         } else if args[4] == "1M" {
             size = 1024 * 1024;
@@ -82,9 +82,29 @@ fn main() -> Result<(), io::Error> {
 
         for (i, _) in bytes.iter().enumerate() {
             //cargo clippy
-            let name_file = format!("a.txt.part{}.split", i);
-            let mut f = File::create(name_file)?;
-            f.write_all(&bytes[i].to_be_bytes())?;
+            // let name_file = format!("a.txt.part{}.split", i);
+            match i {
+                0..=9 => {
+                    let name_file = format!("a.txt.part000{}.split", i);
+                    let mut f = File::create(name_file)?;
+                    f.write_all(&bytes[i].to_be_bytes())?;
+                }
+                10..=99 => {
+                    let name_file = format!("a.txt.part00{}.split", i);
+                    let mut f = File::create(name_file)?;
+                    f.write_all(&bytes[i].to_be_bytes())?;
+                }
+                100..=999 => {
+                    let name_file = format!("a.txt.part0{}.split", i);
+                    let mut f = File::create(name_file)?;
+                    f.write_all(&bytes[i].to_be_bytes())?;
+                }
+                _ => {
+                    let name_file = format!("a.txt.part{}.split", i);
+                    let mut f = File::create(name_file)?;
+                    f.write_all(&bytes[i].to_be_bytes())?;
+                }
+            }
         }
 
         println!("Done! -> {} files created", bytes.len());
@@ -112,7 +132,7 @@ fn main() -> Result<(), io::Error> {
             let file = OpenOptions::new()
                 .append(true)
                 .write(true)
-                .create(args[2].to_string());
+                .open(args[2].to_string())?;
             // let mut file = BufWriter::<dyn Write>::new(f);
             let mut file = BufWriter::new(file);
             // let mut f = file?;
@@ -126,7 +146,7 @@ fn main() -> Result<(), io::Error> {
                 // f.write_all(&bytes)?;
                 //===========================================NOT WORKING...
                 let data = fs::read_to_string(path)?;
-                f?.write_all(&data.as_bytes())?;
+                file.write_all(&data.as_bytes())?;
 
                 fs::remove_file(path)?;
             }
@@ -152,3 +172,7 @@ fn main() -> Result<(), io::Error> {
 //source:
 //source:
 //====================================================================================================
+
+
+//TODO :1. SA VERIFIC DACA NU SUN FISIERE CORUPTE -> PUN IN HEADER-UL FISIERULUI UN HASH
+//TODO :2. SA VERIFIC DACA AM TOATE FIZIERELE (DACA U S-A STERSC VREUNUL)
