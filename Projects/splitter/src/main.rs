@@ -63,7 +63,8 @@ fn main() -> Result<(), io::Error> {
         //     _ => size = 1, // Default size is 1 byte
         // }
 
-        if args[4] == "1K" {//todo pot fi parametrii diferiti
+        if args[4] == "1K" {
+            //todo pot fi parametrii diferiti
             size = 1024;
         } else if args[4] == "1M" {
             size = 1024 * 1024;
@@ -172,7 +173,6 @@ fn main() -> Result<(), io::Error> {
 //source:
 //source:
 //====================================================================================================
-
 
 //TODO :1. SA VERIFIC DACA NU SUN FISIERE CORUPTE -> PUN IN HEADER-UL FISIERULUI UN HASH
 //TODO :2. SA VERIFIC DACA AM TOATE FIZIERELE (DACA U S-A STERSC VREUNUL)
