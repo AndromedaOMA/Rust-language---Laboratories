@@ -1,8 +1,9 @@
 use glob::glob;
 use regex::Regex;
-use std::fs::File;
-use std::io::{Error, ErrorKind, Read, Write};
-use std::{fs, io};
+use std::fs;
+use std::fs::{File, OpenOptions};
+use std::io;
+use std::io::{BufWriter, Error, ErrorKind, Read, Write};
 // use std::iter::repeat_with;
 
 fn main() -> Result<(), io::Error> {
@@ -52,7 +53,7 @@ fn main() -> Result<(), io::Error> {
         let path = format!("./src/{}", args[2]);
         let mut fd = File::open(path).expect("Can't open file");
 
-        let mut size: usize = 1;
+        let mut size: usize = 1; //default size is 1 byte
 
         //NOT WORKING...
         // match args[4] {
@@ -85,12 +86,13 @@ fn main() -> Result<(), io::Error> {
             let mut f = File::create(name_file)?;
             f.write_all(&bytes[i].to_be_bytes())?;
         }
+
         println!("Done! -> {} files created", bytes.len());
     } else if args[1] == "unsplit" {
         //============================================UNSPLIT=================================================
         // println!("unsplit");
 
-        //============================================GLOB====================================================
+        //============================================GLOB -> populate vec!===================================
         let mut list_of_split_paths = vec![];
         for entry in glob("../splitter/*.split").expect("Failed to read glob pattern") {
             match entry {
@@ -98,58 +100,38 @@ fn main() -> Result<(), io::Error> {
                 Err(e) => println!("{:?}", e),
             }
         }
-        //====================================================================================================
-
         //test
         // println!("list_of_paths: {:?}", list_of_split_paths);
+        //====================================================================================================
 
         if list_of_split_paths.is_empty() {
             return Err(list_of_split_paths_error);
         } else {
-            //===========================================NOT WORKING...
             list_of_split_paths.sort();
-            let mut f = File::create(args[2])?;
+            // let mut f = File::create(args[2])?;
+            let file = OpenOptions::new()
+                .append(true)
+                .write(true)
+                .create(args[2].to_string());
+            // let mut file = BufWriter::<dyn Write>::new(f);
+            let mut file = BufWriter::new(file);
+            // let mut f = file?;
+
             for path in list_of_split_paths.iter() {
-                let mut fd = File::open(path).expect("Can't open file");
-
-                let size = fd.metadata()?.len() as usize;
-                let mut bytes = vec![0u8; size];
-                fd.read_exact(&mut bytes)?;
-
-                f.write_all(&bytes)?;
+                //===========================================NOT WORKING...
+                // let mut fd = File::open(path).expect("Can't open file");
+                // let size = fd.metadata()?.len() as usize;
+                // let mut bytes = vec![0u8; size];
+                // fd.read_exact(&mut bytes)?;
+                // f.write_all(&bytes)?;
+                //===========================================NOT WORKING...
+                let data = fs::read_to_string(path)?;
+                f?.write_all(&data.as_bytes())?;
 
                 fs::remove_file(path)?;
             }
             // fs::remove_file(args[2])?;
-        }
-        /*  SOME IDEAS  -> create a string that contain all the data then move it to the a.txt file
-        {
-            //===========================================NOT WORKING...
-            list_of_split_paths.sort();
-            let mut final_content: &str = "";
-            let mut f = File::create(args[2])?;
-            for path in list_of_split_paths.iter() {
-                let mut fd = File::open(path).expect("Can't open file");
-
-                // let mut buffer = [0u8; list_of_split_paths.len() as usize * 1024];
-                // let mut file = File::open(fd)?;
-                // let bytes_read = file.read(&mut buffer)?;
-                // final_content = &(final_content + &buffer[..bytes_read]);
-
-                let size = fd.metadata()?.len() as usize;
-                let mut bytes = vec![0u8; size];
-                fd.read_exact(&mut bytes)?;
-
-                f.write_all(&bytes)?;
-
-                fs::remove_file(path)?;
-            }
-            // fs::remove_file(args[2])?;
-
-            // println!("{}",final_content);
-            // f.write_all(&final_content)?;
-
-        }*/
+        } //  SOME IDEAS  -> create a string that contain all the data then move it to the a.txt file
     }
 
     Ok(())
@@ -157,11 +139,16 @@ fn main() -> Result<(), io::Error> {
 
 //=====================================BIBLIOGRAPHY==================================================
 //source: https://users.rust-lang.org/t/read-variable-number-of-bytes-from-a-file/89179
-//source: https://www.youtube.com/watch?v=nQqraiMymcU
+//source: https://www.youtube.com/watch?v=nQq raiMymcU
 //source: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 //source: https://stackoverflow.com/questions/26076005/how-can-i-list-files-of-a-directory-in-rust
 //source: https://crates.io/crates/glob
 //source: https://doc.rust-lang.org/std/fs/fn.remove_file.html#:~:text=Function%20std%3A%3Afs%3A%3Aremove_file&text=Removes%20a%20file%20from%20the,descriptors%20may%20prevent%20immediate%20removal).
 //source: https://doc.rust-lang.org/std/fs/struct.Metadata.html
 //source: https://redandgreen.co.uk/buffers-in-rust/rust-programming/
+//source: https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.append
+//source: https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.create
+//source: https://www.youtube.com/watch?v=CE_7vZKMs2Y
+//source:
+//source:
 //====================================================================================================
