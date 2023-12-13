@@ -80,7 +80,7 @@ fn main() -> Result<(), io::Error> {
         //test
         // println!("content: {:?}", &bytes);
 
-        for i in 0..bytes.len() {
+        for i in 0..bytes.len() {//BUG nu pt fiecare byte
             let name_file = format!("a.zip.part{}.split", i);
             let mut f = File::create(name_file)?;
             f.write_all(&bytes[i].to_be_bytes())?;
