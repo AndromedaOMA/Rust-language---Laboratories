@@ -3,105 +3,90 @@ use std::io::{Error, ErrorKind};
 use std::{fs, io};
 // use std::iter::repeat_with;
 
-fn main() -> Result<(), io::Error> {
-    let custom_error = Error::new(ErrorKind::Other, "Wrong command!");
+use clap::Parser;
 
-    //============================================LISTS OF CHARS==========================================
-    let list_of_alphanumeric: Vec<char> =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            .chars()
-            .collect();
-    let list_of_special_chars: Vec<char> = "!?#@".chars().collect();
-    let list_of_uppercase: Vec<char> = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".chars().collect();
-    //====================================================================================================
+#[derive(Parser)]
+#[command(
+    version,
+    about = "Decide if the password is generated randomly or from a dictionary"
+)]
+struct Args {
+    /// Title of the file directory of the dictionary
+    #[arg(long, short, default_value = "None")]
+    dict: String,
+}
 
-    //============================================INPUT===================================================
-    let mut input = String::new();
-    println!("Enter a command:");
-    let _ = io::stdin().read_line(&mut input);
+use lazy_static::lazy_static;
+
+lazy_static! {
+    static ref LIST_OF_ALL_CHARS: Vec<char> = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?#@".chars().collect();
+    static ref LIST_OF_SPECIAL_CHARS: Vec<char> = "!?#@".chars().collect();
+    static ref LIST_OF_UPPERCASE_CHARS: Vec<char> = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".chars().collect();
+}
+
+fn random_password() -> String {
+    //============================================RANDOM PASSWORD==========================================
+    let random_length = fastrand::usize(12..19);
+
+    let password: String = (0..random_length)
+        .map(|current_index| {
+            if current_index == 0 {
+                let random_index = fastrand::usize(..LIST_OF_UPPERCASE_CHARS.len());
+                LIST_OF_UPPERCASE_CHARS[random_index].to_string()
+            } else if current_index == 1 {
+                let random_index = fastrand::usize(..LIST_OF_SPECIAL_CHARS.len());
+                LIST_OF_SPECIAL_CHARS[random_index].to_string()
+            } else {
+                let random_index = fastrand::usize(..LIST_OF_ALL_CHARS.len());
+                LIST_OF_ALL_CHARS[random_index].to_string()
+            }
+        })
+        .collect();
+    return password;
+}
+fn dictionary_password(dic: String) -> String {
+    //============================================DICTIONARY PASSWORD======================================
+    let path = format!("./src/{}", dic);
+    let binding = fs::read_to_string(path).expect("NOTHING");
+    let s:&str= binding.as_str();
 
     let re = Regex::new(r"\S+").unwrap();
-    let args: Vec<&str> = re.find_iter(&input).map(|m| m.as_str()).collect();
+    let words: Vec<&str> = re.find_iter(s).map(|m| m.as_str()).collect();
 
-    //test
-    /*
-    for arg in args.iter() {
-        println!("{}", arg);
-    }
-    */
+    let random_length = fastrand::usize(12..19);
+    let mut password_length = 0;
+    let password: String = (0..random_length)
+        .map(|_| {
+            let random_index = fastrand::usize(..words.len());
+            if password_length + words[random_index].len() <= random_length {
+                password_length += words[random_index].len();
+                words[random_index].to_string()
+            } else {
+                "".to_string()
+            }
+        })
+        .collect();
+    return password;
+}
 
-    if args.len() == 1 && args[0] != "./pass_gen"
-        || args.len() == 3
-            && (args[0] != "./pass_gen" || args[1] != "--dict" || args[2] != "dict.txt")
-        || args.len() != 1 && args.len() != 3
-    {
-        println!("You have to chose from these two commands:");
-        println!("   1. ./pass_gen                 -> to generate a random password");
-        println!(
-            "   2. ./pass_gen --dict dict.txt -> to generate a random password from a dictionary"
-        );
-        return Err(custom_error);
-    }
-    //====================================================================================================
+fn main() -> Result<(), io::Error> {
+    let _custom_error = Error::new(ErrorKind::Other, "Wrong command!");
 
-    // let password: String = repeat_with(fastrand::alphanumeric).take(random_length).collect();
-
-    //========================================COMMAND SELECTION===========================================
-    if args.len() == 1 {
-        //============================================RANDOM PASSWORD==========================================
-        let random_length = fastrand::usize(12..19);
-
-        let password: String = (0..random_length)
-            .map(|current_index| {
-                if current_index == 0 {
-                    let random_index = fastrand::usize(..list_of_uppercase.len());
-                    list_of_uppercase[random_index].to_string()
-                } else if current_index == 1 {
-                    let random_index = fastrand::usize(..list_of_special_chars.len());
-                    list_of_special_chars[random_index].to_string()
-                } else {
-                    let random_index = fastrand::usize(..list_of_alphanumeric.len());
-                    list_of_alphanumeric[random_index].to_string()
-                }
-            })
-            .collect();
-
+    let args = Args::parse();
+    if args.dict != "None" {
         println!("Hello!!");
-        println!("-> Here is the random password: {}", password);
-        println!("Enjoy!!");
-    } else {
-        //============================================DICTIONARY PASSWORD======================================
-        let path = format!("./src/{}", args[2]);
-        let s = fs::read_to_string(path)?;
-        //test
-        //println!("{}", path);
-        //println!("{}", s);
-
-        let re = Regex::new(r"\S+").unwrap();
-        let words: Vec<&str> = re.find_iter(&s).map(|m| m.as_str()).collect();
-
-        let random_length = fastrand::usize(12..19);
-        let mut password_length = 0;
-        let password: String = (0..random_length)
-            .map(|_| {
-                let random_index = fastrand::usize(..words.len());
-                if password_length + words[random_index].len() <= random_length {
-                    password_length += words[random_index].len();
-                    words[random_index].to_string()
-                } else {
-                    "".to_string()
-                }
-            })
-            .collect();
-
-        println!("Hello!!");
+        let password = dictionary_password(args.dict);
         println!(
             "-> Here is the random password generated with dictionary: {}",
             password
         );
         println!("Enjoy!!");
+    } else {
+        println!("Hello!!");
+        let password = random_password();
+        println!("-> Here is the random password: {}", password);
+        println!("Enjoy!!");
     }
-    //====================================================================================================
 
     Ok(())
 }
@@ -111,4 +96,6 @@ fn main() -> Result<(), io::Error> {
 //and: https://docs.rs/fastrand/1.3.0/fastrand/
 //source: https://stackoverflow.com/questions/15619320/how-can-i-access-command-line-parameters-in-rust
 //source: https://docs.rs/regex/latest/regex/struct.Regex.html#method.find_iter
+//source: https://www.youtube.com/watch?v=B_UZu-jBYgw
+//source: https://docs.rs/lazy_static/latest/lazy_static/
 //====================================================================================================
