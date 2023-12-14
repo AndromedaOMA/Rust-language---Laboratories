@@ -1,5 +1,5 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+pub fn base64(value: String) -> String {
+    value
 }
 
 #[cfg(test)]
@@ -8,7 +8,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+        let result = base64("23");
+        assert_eq!(result, "MjM=");
     }
 }
