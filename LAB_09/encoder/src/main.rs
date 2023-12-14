@@ -36,7 +36,7 @@ fn main() {
             .write_all(output_file.as_bytes())
             .expect("Something went wrong reading the stdout");
     } else if args.input == "None" || args.output == "None" {
-        println!("No output file specified");
+        println!("Something went wrong reading the input/output");
     } else {
         let input = args.input;
         let output = args.output;
