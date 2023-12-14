@@ -24,29 +24,30 @@ fn main() {
 
     if args.input == "None" && args.output == "None" {
         println!("No input or output file specified");
-        let input_file = String::new();
+        let mut input_file = String::new();
         io::stdin()
             .read_line(&mut input_file)
             .expect("Something went wrong reading the stdin");
 
-        let output_file = encode(input_file);
+        let mut input_bytes = input_file.as_bytes().to_vec();
+        let output_file = encode(&mut input_bytes);
 
         io::stdout()
-            .write_all(output_file)
+            .write_all(output_file.as_bytes())
             .expect("Something went wrong reading the stdout");
-    } else if args.input == "None" {
-        println!("No input file specified");
-    } else if args.output == "None" {
+    } else if args.input == "None" || args.output == "None" {
         println!("No output file specified");
     } else {
         let input = args.input;
         let output = args.output;
 
         let input_file =
-            std::fs::read_to_string(input).expect("Something went wrong reading the file");
-        let output_file = encode(input_file);
+            std::fs::read_to_string(&input).expect("Something went wrong reading the file");
 
-        std::fs::write(output, output_file).expect("Something went wrong writing the file");
+        let mut input_bytes = input_file.as_bytes().to_vec();
+        let output_file = encode(&mut input_bytes);
+
+        std::fs::write(&output, output_file).expect("Something went wrong writing the file");
     }
 }
 
