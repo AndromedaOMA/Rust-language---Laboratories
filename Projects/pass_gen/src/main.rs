@@ -42,7 +42,7 @@ fn random_password() -> String {
             }
         })
         .collect();
-    return password;
+    password
 }
 fn dictionary_password(dic: String) -> String {
     //============================================DICTIONARY PASSWORD======================================
@@ -66,7 +66,7 @@ fn dictionary_password(dic: String) -> String {
             }
         })
         .collect();
-    return password;
+    password
 }
 
 fn main() -> Result<(), io::Error> {

@@ -49,3 +49,8 @@ mod tests {
         assert_eq!(result, "MjM=");
     }
 }
+
+//=================================================
+//source: https://dev.to/tiemen/implementing-base64-from-scratch-in-rust-kb1
+//source: https://www.youtube.com/watch?v=aUdKd0IFl34
+//=================================================
