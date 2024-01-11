@@ -26,7 +26,7 @@ lazy_static! {
 
 fn random_password() -> String {
     //============================================RANDOM PASSWORD==========================================
-    let random_length = fastrand::usize(12..19);
+    let random_length = fastrand::usize(12..=18);
 
     let password: String = (0..random_length)
         .map(|current_index| {
@@ -44,6 +44,7 @@ fn random_password() -> String {
         .collect();
     password
 }
+
 fn dictionary_password(dic: String) -> String {
     //============================================DICTIONARY PASSWORD======================================
     let path = format!("./src/{}", dic);
