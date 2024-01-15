@@ -1,0 +1,11 @@
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\libglutin_wgl_sys-5ddc7ea9e08f8611.rmeta: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_wgl_sys-0.5.0\src\lib.rs D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_bindings.rs D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_extra_bindings.rs
+
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\libglutin_wgl_sys-5ddc7ea9e08f8611.rlib: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_wgl_sys-0.5.0\src\lib.rs D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_bindings.rs D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_extra_bindings.rs
+
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\glutin_wgl_sys-5ddc7ea9e08f8611.d: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_wgl_sys-0.5.0\src\lib.rs D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_bindings.rs D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_extra_bindings.rs
+
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\glutin_wgl_sys-0.5.0\src\lib.rs:
+D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_bindings.rs:
+D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\calculator\target\debug\build\glutin_wgl_sys-5427f8740553ceec\out/wgl_extra_bindings.rs:
+
+# env-dep:OUT_DIR=D:\\Windows_Folders\\FACULTATE\\Cursuri an II\\Sem I\\Rust\\Laboratories\\Projects\\calculator\\target\\debug\\build\\glutin_wgl_sys-5427f8740553ceec\\out

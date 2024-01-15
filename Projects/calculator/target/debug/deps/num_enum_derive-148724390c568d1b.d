@@ -1,0 +1,9 @@
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\num_enum_derive-148724390c568d1b.dll: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\lib.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\enum_attributes.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\parsing.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\utils.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\variant_attributes.rs
+
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\num_enum_derive-148724390c568d1b.d: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\lib.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\enum_attributes.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\parsing.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\utils.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\variant_attributes.rs
+
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\lib.rs:
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\enum_attributes.rs:
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\parsing.rs:
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\utils.rs:
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\num_enum_derive-0.7.2\src\variant_attributes.rs:

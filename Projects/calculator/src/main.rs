@@ -1,11 +1,11 @@
 use std::collections::HashMap;
-use std::io::stdin;
 
 struct Calculator {
     sign_pr: HashMap<char, i32>,
     asoc: HashMap<char, char>,
     infix: String,
     postfix: String,
+    result: String,
 }
 
 impl Calculator {
@@ -15,16 +15,16 @@ impl Calculator {
             asoc: HashMap::from([('+', 'L'), ('-', 'L'), ('*', 'L'), ('/', 'L'), ('^', 'R')]),
             infix: String::new(),
             postfix: String::new(),
+            result: String::new(),
         }
     }
 
-    fn store_infix(&mut self) {
-        println!("Enter the infix expression: ");
-        stdin()
-            .read_line(&mut self.infix)
-            .expect("Failed to read line");
-
+    fn store_infix(&mut self, exp: String) -> String {
+        self.infix = exp;
         self.infix = self.infix.trim().to_string();
+
+        let text = String::from("The infix expression is: ".to_owned() + &self.infix);
+        return text;
     }
 
     fn infix_to_posfix(&mut self) {
@@ -58,11 +58,12 @@ impl Calculator {
         }
     }
 
-    fn show_postfix(&mut self) {
-        println!("This is the postfix expression: {:?}", self.postfix);
+    fn show_postfix(&mut self) -> String {
+        let text = String::from("This is the postfix expression: ".to_owned() + &self.postfix);
+        return text;
     }
 
-    fn evaluate_postfix(&mut self) {
+    fn evaluate_postfix(&mut self) -> String{
         let mut stack: Vec<i32> = Vec::new();
 
         for c in self.postfix.chars() {
@@ -80,23 +81,86 @@ impl Calculator {
                     '^' => stack.push(a.pow(b as u32)),
                     _ => {
                         println!("Invalid operator");
-                        return;
                     }
                 }
             }
         }
-        println!("The result is: {:?}", stack.pop().unwrap());
+
+        self.result = stack.pop().unwrap().to_string();
+        let text = String::from("The result is: ".to_owned() + &self.result);
+        return text;
     }
 }
 
-fn main() {
-    let mut calc = Calculator::calculator();
-    calc.store_infix();
-    println!("This is the infix expression: {:?}", calc.infix);
+slint::slint! {
+    import { Button, VerticalBox, LineEdit } from "std-widgets.slint";
 
-    calc.infix_to_posfix();
+    export component AppWindow inherits Window {
 
-    calc.show_postfix();
+    in property <string> result: "";
+    callback calculate(string);
 
-    calc.evaluate_postfix();
+        GridLayout{
+            padding:30px;
+            spacing:25px;
+            Row{
+                Text{
+                    text: "Enter the arithmetic expression";
+                    horizontal-alignment: center;
+                    font-size: 20pt;
+                    font-weight: 450;
+                }
+            }
+            Row{
+                input := LineEdit{
+                    horizontal-alignment: center;
+                    font-size: 25px;
+                    placeholder-text:"yay";
+                    height: 40px;
+                }
+            }
+            Row{
+                Button {
+                    text: "Calculate";
+                    primary:true;
+                    height: 40px;
+                    clicked =>{ calculate(input.text) }
+                }
+            }
+            Row{
+                VerticalBox {
+                    Rectangle{
+                        height: 100px;
+                        background: #f2f2f2;
+                        Text{
+                            color: black;
+                            font-size: 25px;
+                            font-weight: 500;
+                            text: root.result;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+fn main() -> Result<(), slint::PlatformError> {
+    let ui = AppWindow::new()?;
+    let ui_handle = ui.as_weak();
+
+    ui.on_calculate(move |infix| {
+        let ui = ui_handle.unwrap();
+
+        let mut calc = Calculator::calculator();
+        let text1: String = calc.store_infix(infix.to_string());
+        calc.infix_to_posfix();
+        let text2: String = calc.show_postfix();
+        let text3: String = calc.evaluate_postfix();
+
+        let result: String = format!("{}\n{}\n{}", text1, text2, text3);
+        ui.set_result(result.into());
+    });
+
+    ui.run()
 }

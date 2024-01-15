@@ -1,0 +1,10 @@
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\libcopypasta-d67f42d71770ab60.rmeta: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\lib.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\common.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\windows_clipboard.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\nop_clipboard.rs
+
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\libcopypasta-d67f42d71770ab60.rlib: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\lib.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\common.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\windows_clipboard.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\nop_clipboard.rs
+
+D:\Windows_Folders\FACULTATE\Cursuri an II\Sem I\Rust\Laboratories\Projects\calculator\target\debug\deps\copypasta-d67f42d71770ab60.d: C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\lib.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\common.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\windows_clipboard.rs C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\nop_clipboard.rs
+
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\lib.rs:
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\common.rs:
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\windows_clipboard.rs:
+C:\Users\mariu\.cargo\registry\src\index.crates.io-6f17d22bba15001f\copypasta-0.10.0\src\nop_clipboard.rs:
