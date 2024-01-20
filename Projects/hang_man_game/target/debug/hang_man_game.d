@@ -1,0 +1,1 @@
+D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\hang_man_game\target\debug\hang_man_game.exe: D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\hang_man_game\src\main.rs

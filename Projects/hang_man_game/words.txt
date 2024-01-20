@@ -1,0 +1,6 @@
+Animals: Tiger, Elephant, Dolphin, Falcon, Kangaroo
+Fruits: Pineapple, Kiwi, Mango, Raspberry, Papaya
+Colors: Turquoise, Marigold, Indigo, Coral, Lavender
+Countries: Brazil, Japan, Australia, Kenya, Germany
+Professions: Astronomer, Chef, Architect, Librarian, Firefighter
+Emotions: Euphoria, Melancholy, Contentment, Baffled, Serene
