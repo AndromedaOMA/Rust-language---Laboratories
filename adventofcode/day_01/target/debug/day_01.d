@@ -1,0 +1,1 @@
+D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\adventofcode\day_01\target\debug\day_01.exe: D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\adventofcode\day_01\src\main.rs
