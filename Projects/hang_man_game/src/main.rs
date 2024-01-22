@@ -36,27 +36,27 @@ impl Guess {
             return None;
         }
     }
-    fn get_word(&self) -> &String {
-        &self.word
-    }
+    // fn get_word(&self) -> &String {
+    //     &self.word
+    // }
     fn get_category(&self) -> String {
         self.category.clone()
     }
-    fn get_no_of_guesses(&self) -> u32 {
-        self.no_of_guesses
-    }
+    // fn get_no_of_guesses(&self) -> u32 {
+    //     self.no_of_guesses
+    // }
     fn get_maximum_no_of_guesses(&self) -> u32 {
         self.maximum_no_of_guesses
     }
-    fn get_word_guessed(&self) -> bool {
-        self.word_guessed
-    }
-    fn get_display_word(&self) -> &String {
-        &self.display_word
-    }
-    fn get_content_category(&self) -> &String {
-        &self.content_category
-    }
+    // fn get_word_guessed(&self) -> bool {
+    //     self.word_guessed
+    // }
+    // fn get_display_word(&self) -> &String {
+    //     &self.display_word
+    // }
+    // fn get_content_category(&self) -> &String {
+    //     &self.content_category
+    // }
     fn display_update_dw(&mut self, guessed_letters: HashSet<char>) {
         self.display_word = self
             .word
@@ -154,7 +154,7 @@ fn main() {
     );
     println!(
         "You have only {} guesses!  Good luck!",
-        word.as_mut().unwrap().maximum_no_of_guesses
+        word.as_mut().expect("Can't get the maximum_no_of_guesses").get_maximum_no_of_guesses()
     );
 
     // while &word.no_of_guesses < 6 && !&word.word_guessed {
