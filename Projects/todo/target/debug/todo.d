@@ -1,0 +1,1 @@
+D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\todo\target\debug\todo.exe: D:\Windows_Folders\FACULTATE\Cursuri\ an\ II\Sem\ I\Rust\Laboratories\Projects\todo\src\main.rs
