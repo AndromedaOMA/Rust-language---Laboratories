@@ -7,6 +7,9 @@ use std::fs::File;
 // use std::io::prelude::*;
 use std::path::Path;
 
+use std::io::BufRead;
+use std::io::BufReader;
+
 #[derive(Debug)]
 struct Data {
     title: String,
@@ -14,11 +17,11 @@ struct Data {
     completed: bool,
 }
 impl Data {
-    fn new(title: String, description: String) -> Data {
+    fn new(title: String, description: String, completed: bool) -> Data {
         Data {
             title,
             description,
-            completed: false,
+            completed,
         }
     }
 }
@@ -43,7 +46,8 @@ impl Todo {
         }
     }
     fn create_file(&mut self) {
-        let mut file = File::create(&self.title_list).expect("Unable to create file");
+        let path = Path::new(&self.title_list);
+        let mut file = File::create(path).expect("Unable to create file");
         println!(
             "Please enter some stuff to do: <title1> <description1>, <title2> <description2>, ..."
         );
@@ -54,21 +58,40 @@ impl Todo {
         let stuff_to_do: Vec<&str> = stuff_to_do.split(", ").collect();
         for stuff in stuff_to_do {
             let stuff: Vec<&str> = stuff.split(" ").collect();
-            let title: String = stuff[0].to_string();
-            let description: String = stuff[1].to_string();
+            let title: String = stuff[0].trim().to_string();
+            let description: String = stuff[1].trim().to_string();
             let completed: bool = false;
             self.data
-                .push(Data::new(title.clone(), description.clone()));
+                .push(Data::new(title.clone(), description.clone(), false));
 
             writeln!(
                 file,
-                "Title: {}\nDescription: {}\nCompleted: {}\n",
+                "Title: {}\n\tDescription: {}\n\tCompleted: {}\n",
                 title, description, completed
             )
             .expect("Unable to write data to file");
         }
+        self.show_method();
     }
-    fn populate_data(&mut self) {}
+    fn populate_data(&mut self) {
+        let path = Path::new(&self.title_list);
+        let file: File = File::open(&path).expect("Unable to open file");
+
+        let mut lines = BufReader::new(file).lines();
+        // let mut count = 0;
+
+        while let [Some(a), Some(b), Some(c)] = [lines.next(), lines.next(), lines.next()] {
+            // count += 3;
+            // println!("{:?}\n{:?}\n{:?}\n", a, b, c);
+            // println!("Intermediary count: {:?}", count);
+            let title: String = a.unwrap().replace("Title: ", "");
+            let description: String = b.unwrap().replace("\tDescription: ", "");
+            let completed: bool = c.unwrap().replace("\tCompleted: ", "").parse().unwrap();
+            self.data
+                .push(Data::new(title.clone(), description.clone(), completed));
+            lines.next();
+        }
+    }
     fn add_method(&mut self) {
         let path = Path::new(&self.title_list);
         let mut file: File = OpenOptions::new()
@@ -89,21 +112,20 @@ impl Todo {
         let stuff_to_do: Vec<&str> = stuff_to_do.split(", ").collect();
         for stuff in stuff_to_do {
             let stuff: Vec<&str> = stuff.split(" ").collect();
-            let title: String = stuff[0].to_string();
-            let description: String = stuff[1].to_string();
+            let title: String = stuff[0].trim().to_string();
+            let description: String = stuff[1].trim().to_string();
             let completed: bool = false;
             self.data
-                .push(Data::new(title.clone(), description.clone()));
+                .push(Data::new(title.clone(), description.clone(), false));
 
             writeln!(
                 file,
-                "Title: {}\nDescription: {}\nCompleted: {}\n",
+                "Title: {}\n\tDescription: {}\n\tCompleted: {}\n",
                 title, description, completed
             )
             .expect("Unable to write data to file");
         }
     }
-
     fn remove_method(&mut self) {
         self.show_method();
         println!(
@@ -128,7 +150,7 @@ impl Todo {
                     file.read_to_string(&mut new_content).unwrap();
                     let new_content: String = new_content.replace(
                         &format!(
-                            "Title: {}\nDescription: {}\nCompleted: {}\n",
+                            "\nTitle: {}\n\tDescription: {}\n\tCompleted: {}\n",
                             i.title, i.description, i.completed
                         ),
                         "",
@@ -141,7 +163,6 @@ impl Todo {
             }
         }
     }
-
     fn mark_method(&mut self) {
         self.show_method();
         println!("Please enter the titles of the stuff you want to mark as DONE: <title1>, <title2>, ...");
@@ -159,6 +180,13 @@ impl Todo {
                 }
             }
         }
+        let path = Path::new(&self.title_list);
+        let file: File= OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open(&path)
+            .expect("Unable to open file");
+        
     }
     fn show_method(&self) {
         let path = Path::new(&self.title_list);
@@ -166,6 +194,7 @@ impl Todo {
 
         let mut file: File = File::open(&path).expect("Unable to open file");
 
+        println!("\nHere is your list: ");
         let mut content = String::new();
         match file.read_to_string(&mut content) {
             Err(why) => panic!("couldn't read {}: {}", display, why),
